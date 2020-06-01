@@ -1,20 +1,16 @@
 <div id="formContainer">
-  <form formGroup="loginForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <h1 class="mat-headline">Sign in</h1>
     <mat-form-field class="formField">
       <mat-label>Username</mat-label>
       <input matInput type="text" formControlName="username" required/>
-      <div *ngIf="f.username.invalid && (f.username.dirty || f.username.touched)" class="alert alert-danger">
-        <div *ngIf="f.username.errors.required">Username is required.</div>
-      </div>
+      <mat-error *ngIf="f.username.hasError('required')">Username is required.</mat-error>
     </mat-form-field>
 
     <mat-form-field class="formField">
       <mat-label>Password</mat-label>
       <input matInput type="password" formControlName="password" required/>
-      <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)" class="alert alert-danger">
-        <div *ngIf="f.password.errors.required">Password is required.</div>
-      </div>
+      <mat-error *ngIf="f.password.hasError('required')">Password is required.</mat-error>
     </mat-form-field>
 
     <button mat-raised-button color="primary" type="submit">Sign in</button>

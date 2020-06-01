@@ -2,39 +2,33 @@
 <!--  <h2>HardStore</h2>-->
 <!--</mat-toolbar>-->
 <div id="formContainer">
-  <form formGroup="registerForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <h1 class="mat-headline">Create Account</h1>
     <mat-form-field class="formField">
       <mat-label>Username</mat-label>
       <input matInput type="text" formControlName="username" required/>
-      <mat-error *ngIf="f.username.errors.required">Username is required</mat-error>
-      <mat-error *ngIf="f.username.errors.minlength">Username must be at least 5 characters</mat-error>
+      <mat-error *ngIf="f.username.hasError('required')">Username is required</mat-error>
+      <mat-error *ngIf="f.username.hasError('minlength')">Username must be at least 5 characters</mat-error>
     </mat-form-field>
 
     <mat-form-field class="formField">
       <mat-label>Email</mat-label>
       <input matInput type="text" formControlName="email" required/>
-      <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)" class="alert alert-danger">
-        <div *ngIf="f.email.errors.required">Email is required</div>
-        <div *ngIf="f.email.errors.email">Wrong email format</div>
-      </div>
+      <mat-error *ngIf="f.email.hasError('required')">Email is required</mat-error>
+      <mat-error *ngIf="f.email.hasError('email')">Wrong email format</mat-error>
     </mat-form-field>
 
     <mat-form-field class="formField">
       <mat-label>Password</mat-label>
       <input matInput type="password" formControlName="password" required/>
-      <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)" class="alert alert-danger">
-        <div *ngIf="f.password.errors.required">Password is required</div>
-        <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
-      </div>
+      <mat-error *ngIf="f.password.hasError('required')">Password is required</mat-error>
+      <mat-error *ngIf="f.password.hasError('minlength')">Password must be at least 6 characters</mat-error>
     </mat-form-field>
 
-    <mat-form-field class="formField">
-      <button mat-raised-button color="primary" type=submit [disabled]="loading">
+    <button mat-raised-button color="primary" type=submit>
 <!--        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>-->
         Register
-      </button>
-      <a mat-button color="primary" routerLink="/login">Cancel</a>
-    </mat-form-field>
+    </button>
+    <a mat-button color="primary" routerLink="/login">Cancel</a>
   </form>
 </div>

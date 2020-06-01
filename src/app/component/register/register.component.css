@@ -5,15 +5,14 @@
 }
 
 form {
-  min-width: 150px;
-  max-width: 500px;
-  width: 100%;
+  width: 25%;
   text-align: left;
   display: inline-block;
 }
 
 .formField {
   width: 100%;
+  margin: 8px 24px 8px 24px;
 }
 
 button {
@@ -22,7 +21,7 @@ button {
 
 h1 {
   font-weight: bold;
-  margin: 32px 16px 16px 16px;
+  margin: 32px 0 16px 0;
   color: gray;
 }
 
