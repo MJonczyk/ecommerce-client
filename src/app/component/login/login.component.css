@@ -1,0 +1,30 @@
+#formContainer {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+form {
+  width: 25%;
+  text-align: left;
+  display: inline-block;
+}
+
+.formField {
+  width: 100%;
+  margin: 8px 0 8px 0;
+}
+
+button {
+  margin: 16px 16px 16px 16px;
+}
+
+h1 {
+  font-weight: bold;
+  margin: 32px 0 16px 0;
+  color: gray;
+}
+
+a {
+  margin: 16px 16px 16px 16px;
+}
