@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from '../../service/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,8 +10,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  loading = false;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group(
@@ -21,5 +24,19 @@ export class LoginComponent implements OnInit {
 
   get f() { return this.loginForm.controls; }
 
-  onSubmit() {}
+  onSubmit() {
+    this.loading = true;
+
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    const values = this.loginForm.value;
+
+    this.authService.login(values.username, values.password)
+      .subscribe( response => {
+        this.authService.saveToken(response.headers.get('authorization'));
+        this.router.navigate(['/registerConfirmation']);
+      });
+  }
 }

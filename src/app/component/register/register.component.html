@@ -25,7 +25,7 @@
       <mat-error *ngIf="f.password.hasError('minlength')">Password must be at least 6 characters</mat-error>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type=submit>
+    <button mat-raised-button color="primary" type=submit [disabled]="registerForm.invalid || loading">
 <!--        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>-->
         Register
     </button>
