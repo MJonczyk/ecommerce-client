@@ -18,13 +18,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { JwtModule } from '@auth0/angular-jwt';
+import { AddProductComponent } from './component/add-product/add-product.component';
+import { AddCategoryComponent } from './component/add-category/add-category.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    RegisterConfirmationComponent
+    RegisterConfirmationComponent,
+    AddProductComponent,
+    AddCategoryComponent
   ],
   imports: [
     HttpClientModule,

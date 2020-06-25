@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 const apiUrl = 'http://localhost:8080';
@@ -14,10 +12,7 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-    return this.http.post(`${apiUrl}/login`, { username, password }, {observe: 'response'})
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.post(`${apiUrl}/login`, { username, password }, {observe: 'response'});
   }
 
   saveToken(token: string) {
@@ -40,7 +35,7 @@ export class AuthenticationService {
     } else {
       return new Date(0);
     }
-    }
+  }
 
   isLoggedIn(){
     return new Date().getTime() > this.getExpirationTime().getTime();
@@ -48,15 +43,5 @@ export class AuthenticationService {
 
   isLoggedOut(){
     return !this.isLoggedIn();
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error('An error ocurred:', error.error.message);
-    } else {
-      console.error(`Backend returned code ${error.status}. body was: ${error.error}`);
-    }
-
-    return throwError('An unknown error has ocurred.');
   }
 }
