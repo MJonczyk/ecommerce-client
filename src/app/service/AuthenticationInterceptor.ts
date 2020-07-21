@@ -8,6 +8,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     const jwtToken = localStorage.getItem('jwttoken');
 
     if (jwtToken) {
+      console.log('Bearer ' + jwtToken);
       const cloned = request.clone({
         headers: request.headers.set('Authorization', 'Bearer ' + jwtToken)
       });

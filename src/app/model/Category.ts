@@ -1,6 +1,6 @@
 import { Feature } from './Feature';
 
-export class Category {
+export interface Category {
   id: number;
   name: string;
   features: Feature[];

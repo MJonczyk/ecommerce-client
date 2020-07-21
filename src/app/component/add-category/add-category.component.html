@@ -1,1 +1,43 @@
-<p>add-category works!</p>
+<div id="formContainer">
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+    <h1 class="mat-headline">Add Category</h1>
+    <mat-form-field class="formField">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" formControlName="name" required/>
+      <mat-error *ngIf="f.name.hasError('required')">Name is required</mat-error>
+    </mat-form-field>
+
+    <h1 class="mat-headline">Features</h1>
+    <div formArrayName="features">
+      <div *ngFor="let feature of features.controls; let i=index">
+        <div [formGroupName]="i">
+          <mat-form-field class="formField">
+            <mat-label>
+              Name
+            </mat-label>
+            <input matInput type="text" formControlName="name" required/>
+            <mat-error *ngIf="f.name.hasError('required')">Name is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div id="button-group">
+      <div class="inner-button">
+        <button type="button" mat-mini-fab color="primary" (click)="addFeature()"><mat-icon>add</mat-icon></button>
+      </div>
+      <div class="inner-button">
+        <button type="button" mat-mini-fab color="accent" (click)="removeFeature()"><mat-icon>remove</mat-icon></button>
+      </div>
+    </div>
+    <div id="submit-button-group">
+      <div class="inner-button">
+        <button mat-raised-button color="primary" type=submit [disabled]="categoryForm.invalid || loading">
+          Add
+        </button>
+      </div>
+      <div class="inner-button">
+        <a mat-button color="primary" routerLink="/login">Cancel</a>
+      </div>
+    </div>
+  </form>
+</div>

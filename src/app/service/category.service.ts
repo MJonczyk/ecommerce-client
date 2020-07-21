@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {Category} from '../model/Category';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {CategoriesResponse} from '../model/response/CategoriesResponse';
 
 const apiUrl = 'http://localhost:8080/categories';
 @Injectable({
@@ -14,7 +16,8 @@ export class CategoryService {
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(apiUrl);
+    return this.http.get<CategoriesResponse>(apiUrl)
+      .pipe(map(response => response._embedded.categoryList));
   }
 
   getCategory(id: number): Observable<Category> {

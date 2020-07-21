@@ -1,1 +1,44 @@
-<p>add-product works!</p>
+<div id="formContainer">
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <h1 class="mat-headline">Add Product</h1>
+    <mat-form-field class="formField">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" formControlName="name" required/>
+      <mat-error *ngIf="f.name.hasError('required')">Name is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="formField">
+      <mat-label>Description</mat-label>
+      <input matInput type="text" formControlName="description" required/>
+    </mat-form-field>
+
+    <mat-form-field class="formField">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category" (selectionChange)="onSelectChange($event)">
+        <mat-option *ngFor="let category of categories" [value]="category">
+          {{category.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="f.category.hasError('required')">Password is required</mat-error>
+    </mat-form-field>
+
+    <div formArrayName="details">
+      <div *ngFor="let detail of details.controls; let i=index">
+        <div [formGroupName]="i">
+          <mat-form-field class="formField">
+            <mat-label>
+              {{detail.get('name').value}}
+            </mat-label>
+            <input matInput type="text" formControlName="value">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <button mat-raised-button color="primary" type=submit [disabled]="productForm.invalid || loading">
+      <!--        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>-->
+      Add
+    </button>
+    <a mat-button color="primary" routerLink="/login">Cancel</a>
+  </form>
+</div>
