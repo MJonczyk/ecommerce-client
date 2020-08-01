@@ -1,0 +1,84 @@
+<div id="mainContainer" fxLayout="column">
+  <mat-card class="options" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="36px" fxFlex="70px">
+    <mat-input-container fxFlex="30%">
+      <div>
+        <input matInput type="text" placeholder="Search" #input/>
+      </div>
+    </mat-input-container>
+    <div>
+      <button mat-raised-button color="primary" (click)="addCategory()">Add Category</button>
+    </div>
+    <div>
+      <button mat-raised-button color="primary" (click)="addProduct()">Add Product</button>
+    </div>
+  </mat-card>
+  <div id="spinnerContainer" *ngIf="dataSource.loading$ | async">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div id="tableContainer">
+    <table mat-table class="mat-elevation-z8" [dataSource]="dataSource" multiTemplateDataRows matSort matSortActive="id" matSortDirection="asc"
+               matSortDisableClear>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let product">{{product.id}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let product">{{product.name}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+        <td mat-cell *matCellDef="let product">{{product.category.name}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef>Edit</th>
+        <td mat-cell *matCellDef="let product">
+          <button mat-icon-button color="primary" (click)="editProduct(product)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef>Delete</th>
+        <td mat-cell *matCellDef="let product">
+          <button mat-icon-button color="warn" (click)="deleteProduct(product)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let product" [attr.colspan]="displayedColumns.length">
+          <div fxLayout="row" fxLayoutGap="32px" class="expanded-detail"
+               [@detailExpand]="product == expandedProduct ? 'expanded' : 'collapsed'" >
+            <div fxFlex="30%" class="expanded-description">
+              {{product.description}}
+            </div>
+            <div fxFlex="60%" class="expanded-product-details">
+              <table mat-table [dataSource]="product.details">
+                <ng-container matColumnDef="property">
+                  <td mat-cell *matCellDef="let detail">{{detail.feature.name}}</td>
+                </ng-container>
+                <ng-container matColumnDef="value">
+                  <td mat-cell *matCellDef="let detail">{{detail.value}}</td>
+                </ng-container>
+                <tr mat-row *matRowDef="let row; columns: ['property', 'value']" class="expanded-detail-row"></tr>
+              </table>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns" class="product-row"
+               [class.expanded-row]="expandedProduct === row"
+               (click)="expandedProduct = expandedProduct === row ? null : row"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+    </table>
+    <mat-paginator [length]="dataSource.length" [pageSize]="5" [pageSizeOptions]="[5, 15, 30]"></mat-paginator>
+  </div>
+</div>

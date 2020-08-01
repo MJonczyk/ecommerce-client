@@ -5,13 +5,15 @@ import { LoginComponent } from './component/login/login.component';
 import { RegisterConfirmationComponent } from './component/register-confirmation/register-confirmation.component';
 import { AddProductComponent } from './component/add-product/add-product.component';
 import { AddCategoryComponent } from './component/add-category/add-category.component';
+import { DataManagementComponent } from './component/data-management/data-management.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'registerConfirmation', component: RegisterConfirmationComponent },
   { path: 'addProduct', component: AddProductComponent },
-  { path: 'addCategory', component: AddCategoryComponent }
+  { path: 'addCategory', component: AddCategoryComponent },
+  { path: 'dataManagement', component: DataManagementComponent }
 ];
 
 @NgModule({

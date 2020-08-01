@@ -1,0 +1,43 @@
+#mainContainer {
+  width: 100%;
+}
+
+#spinnerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+table {
+  width: 100%;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+tr.product-row:not(.product-row):hover {
+  background: whitesmoke;
+}
+
+tr.product-row:not(.product-row):active {
+  background: #efefef;
+}
+
+.product-row td {
+  border-bottom-width: 0;
+}
+
+.expanded-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.expanded-description {
+  padding: 16px;
+}
+
+.expanded-detail-row td {
+  margin: 0 32px 0 32px;
+  width: 500px;
+}
